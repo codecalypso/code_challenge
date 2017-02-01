@@ -7,14 +7,12 @@ class LearningPath
 
   def initialize
     @paths = []
+    #create_path(parsed_scores,parsed_domains)
   end
-  parsed_scores=ScoreParser.new('./data/student_tests.csv').scores
-  parsed_domains=DomainParser.new('./data/domain_order.csv').domains
 
   def create_path(parsed_scores,parsed_domains)
     hash={}
     array=[]
-    path=[]
     parsed_scores.map do |score|
       score.inject(0) do|memo,score_unit|
         parsed_domains.map do |domain_k,domain_v|
@@ -46,5 +44,14 @@ class LearningPath
 
   def format_output(grade,domain)
     "#{grade}.#{domain}"
+  end
+
+  private
+  def parsed_scores
+    ScoreParser.new('../data/student_tests.csv').scores
+  end
+
+  def parsed_domains
+    DomainParser.new('../data/domain_order.csv').domains
   end
 end
