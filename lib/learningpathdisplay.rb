@@ -52,8 +52,8 @@ class LearningPathDisplay
       VALID CHOICES: All | Find | Export | Exit
 
       All:    Prints  results for all students
-      Find:   Find results for a student by name
-      Export: Exports all students' results to CSV
+      Find:   Find results for a student by name (eg. find Jane Doe)
+      Export: Exports students' results to CSV
       Exit:   Exits the program
 
     HEREDOC
@@ -92,10 +92,8 @@ class LearningPathDisplay
   def export_results
     load
     @path.each do |path|
-      path.each do |k,v|
-        CSV.open("learningpath.csv", "w") do |csv|
-          path.to_a.each {|elem| csv << elem} 
-        end
+      CSV.open("learningpath.csv", "w") do |csv|
+        path.each{|k,v| csv << [k,v.join(' ')]}
       end
     end
   end
