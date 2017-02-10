@@ -26,8 +26,16 @@ class LearningPathDisplay
 
   def process_input
     selection = gets.chomp
-    action = OPT_MAP.fetch(selection, :display_menu)
-    send(action, param)
+    if  selection.split.size > 2
+      user_input = selection.split
+      selection = user_input[0]
+      param = user_input[1..-1].join(' ')
+      action = OPT_MAP.fetch(selection, :display_menu)
+      send(action,param)
+    else
+      action = OPT_MAP.fetch(selection, :display_menu)
+      send(action)
+    end
     process_input
   end
 
@@ -75,8 +83,8 @@ class LearningPathDisplay
   def select_student(name)
     load
     @path.map do |student|
-      student.select do |k,v|
-        k == name
+      student.find do |k,v|
+        puts "#{k.colorize(:blue)}".ljust(40) + "#{v.join(', ')}" if k == name
       end
     end
   end
