@@ -19,8 +19,8 @@ describe "LearningPath" do
     let(:student3){[[{"Student Name"=>"Bruce Wayne"}]]}
     let(:student4){[[{"Student Name"=>"Ayana Runolfsson", "RF"=>"K", "RL"=>"2", "RI"=>"5","L"=>"2"}]]}
 
-    let(:parsed_scores){ScoreParser.new("../../spec/fixtures/student_math_scores.csv").scores}
-    let(:parsed_domain){DomainParser.new("../../spec/fixtures/math_domain.csv").domains}
+    let(:parsed_scores){ScoreParser.new("./spec/fixtures/student_math_scores.csv").scores}
+    let(:parsed_domain){DomainParser.new("./spec/fixtures/math_domain.csv").domains}
     let(:alternate_domain){path.create_path(parsed_scores,parsed_domain)}
 
 
@@ -46,6 +46,6 @@ describe "LearningPath" do
    end
 
    it "is domain agnostic" do
-     #expect(alternate_domain).to include({"Addie Green"=>["1.ML","2.AD","2.ML","2.DV","2.GM"]})
+     expect(alternate_domain.any? {|hash| hash["Addie Green"] == ["1.ML","2.AD","2.ML","2.DV","2.GM"]}).to be_truthy
    end
 end

@@ -25,11 +25,9 @@ class LearningPathDisplay
   }
 
   def process_input
-    selection = gets.chomp.downcase
-    param1,param2 = selection.split
-    param2 ||= ""
-    action = OPT_MAP.fetch(param1, :display_menu)
-    send(action)
+    selection = gets.chomp
+    action = OPT_MAP.fetch(selection, :display_menu)
+    send(action, param)
     process_input
   end
 
