@@ -19,7 +19,7 @@ class LearningPathDisplay
   OPT_MAP = {
     "all"      => "print_students",
     "find"     => "select_student",
-    "export "  => "export_results",
+    "export"   => "export_results",
     "exit"     => "exit_program",
     "else"     => "display_menu"
   }
@@ -93,8 +93,8 @@ class LearningPathDisplay
     load
     @path.each do |path|
       path.each do |k,v|
-        CSV.open("learning_path.csv","wb") do |csv|
-          csv<<[k,v]
+        CSV.open("learningpath.csv", "w") do |csv|
+          path.to_a.each {|elem| csv << elem} 
         end
       end
     end
